@@ -17,6 +17,7 @@ import com.opennoisecanceler.app.engine.EngineStatusBus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
 
 /**
@@ -80,7 +81,14 @@ class AncForegroundService : Service() {
         }
 
         serviceScope.launch {
-            engineController.state.collect { state ->
+            // drop(1): a MutableStateFlow immediately replays its current
+            // value (EngineState.Stopped, at this point — nothing has been
+            // started yet) to a brand new collector. Without dropping that
+            // initial replay, this collector would see "Stopped" and call
+            // stopSelf() on every single onCreate(), before onStartCommand()
+            // ever gets to call startForeground() — which is exactly what
+            // produces ForegroundServiceDidNotStartInTimeException.
+            engineController.state.drop(1).collect { state ->
                 EngineStatusBus.publishState(state)
                 updateNotification()
                 if (state is EngineState.Error) {
