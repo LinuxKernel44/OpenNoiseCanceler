@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Required to capture ambient audio from the phone microphone. -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <!-- Required to run the ANC engine as a foreground service while the
+         user is in another app. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+
+    <!-- Required to request low-latency audio mode / route management for
+         the active ANC stream. -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+    <!-- Required only to open the system "ignore battery optimizations"
+         request dialog for this app from the in-app explainer screen; the
+         user can always decline it there. No other use. -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
+    <!-- Declares the microphone capability so Play Protect / device policy
+         audits can see it is a genuine audio-recording feature. -->
+    <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.audio.low_latency"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.audio.pro"
+        android:required="false" />
+
+    <application
+        android:name=".OpenNoiseCancelerApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.OpenNoiseCanceler">
+
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.OpenNoiseCanceler"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".service.AncForegroundService"
+            android:exported="false"
+            android:foregroundServiceType="microphone"
+            android:stopWithTask="false" />
+
+    </application>
+
+</manifest>

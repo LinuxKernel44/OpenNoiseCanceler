@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OpenNoiseCanceler</string>
+
+    <string name="notification_channel_name">ANC status</string>
+    <string name="notification_channel_description">Shows whether active noise cancellation is currently running.</string>
+    <string name="notification_title">OpenNoiseCanceler</string>
+    <string name="notification_text_running">Active — %1$s preset</string>
+    <string name="notification_text_starting">Starting…</string>
+    <string name="notification_action_stop">Stop</string>
+</resources>

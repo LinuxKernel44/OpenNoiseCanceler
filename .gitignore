@@ -1,0 +1,27 @@
+# Local machine / secrets — never commit
+local.properties
+keystore.properties
+keystore/
+*.jks
+*.keystore
+
+# Gradle
+.gradle/
+build/
+app/build/
+*/build/
+
+# Native build outputs
+.cxx/
+app/.cxx/
+build-native-test/
+
+# Android Studio / IDE
+.idea/
+*.iml
+.DS_Store
+captures/
+.externalNativeBuild/
+
+# Local scratch / test output
+/local_scratch/

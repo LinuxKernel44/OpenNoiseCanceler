@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Minimal XML theme required by the manifest before Compose takes
+         over; the app is dark-theme-only (see ui/theme/Theme.kt), so this
+         forces dark regardless of system setting to avoid a light flash on
+         cold start. -->
+    <style name="Theme.OpenNoiseCanceler" parent="android:Theme.Material.NoActionBar">
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <item name="android:windowBackground">@color/window_background</item>
+        <item name="android:statusBarColor">@color/window_background</item>
+        <item name="android:navigationBarColor">@color/window_background</item>
+    </style>
+</resources>
